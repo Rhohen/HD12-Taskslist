@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClientJsonpModule  } from '@angular/common/http';
 
-import { TasksList } from './app.component';
+import { TasksList } from './tasks.list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {MatListModule} from '@angular/material/list';

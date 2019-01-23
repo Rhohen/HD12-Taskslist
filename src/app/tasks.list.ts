@@ -11,9 +11,9 @@ export type Task = { idTask:string,
 		taskDuration:number };
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  selector: 'tasks-list',
+  templateUrl: './tasks.list.html',
+  styleUrls: ['./tasks.list.css'],
 
 })
 
