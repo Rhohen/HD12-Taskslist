@@ -1,16 +1,34 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule, HttpClientJsonpModule  } from '@angular/common/http';
 
-import { AppComponent } from './app.component';
+import { TasksList } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import {MatListModule} from '@angular/material/list';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
-    AppComponent
+    TasksList
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule,
+    HttpClientJsonpModule,
+    BrowserAnimationsModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatSelectModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [TasksList]
 })
 export class AppModule { }
