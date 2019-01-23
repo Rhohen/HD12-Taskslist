@@ -2,16 +2,19 @@
 <h1 matLine>Tasks List</h1>
 
 <mat-form-field>
-  <mat-select placeholder="Favorite food">
-  	<mat-option>None</mat-option>
-    <mat-option>Programmation</mat-option>
-    <mat-option>Botanique</mat-option>
-    <mat-option>Texte</mat-option>
+  <mat-select placeholder="Filter by" (selectionChange)="filterChanged($event.value)">
+  	<mat-option *ngFor="let filter of filterList" [value]="filter">{{filter}}</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-select placeholder="Sort by" (selectionChange)="sortChanged($event.value)">
+  	<mat-option *ngFor="let sort of sortList" [value]="sort">{{sort}}</mat-option>
   </mat-select>
 </mat-form-field>
 
 <mat-list>
-	<mat-list-item *ngFor="let task of tasks | async">
+	<mat-list-item *ngFor="let task of sortedAndFilteredTasks | async">
 		<mat-divider></mat-divider>
 		<h3 matLine>{{task.label}}</h3>
 		<p matLine><span>{{task.category}}</span></p>

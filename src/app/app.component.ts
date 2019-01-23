@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
 
 export type Task = { idTask:string,
 		label:string,
@@ -18,7 +19,11 @@ export type Task = { idTask:string,
 
 export class TasksList implements OnInit {
 
+	filterList = ['None', 'Botanique','Programmation','Texte'];
+	sortList = ['None', 'Difficulty', 'Duration'];
+
 	tasks: Observable<Task[]>;
+	sortedAndFilteredTasks: Observable<Task[]>;
 
 	private jsonURL = 'assets/listTasks.json';
 	
@@ -26,11 +31,29 @@ export class TasksList implements OnInit {
   
 	getConfig() {
 		this.tasks =  this.http.get<Task[]>(this.jsonURL);
+		this.sortedAndFilteredTasks = this.tasks;
 	}
 
 	ngOnInit() { 
 		this.getConfig();
-		this.http.get<Task[]>(this.jsonURL).subscribe(data => console.log(data));
+	}
 
+	sortChanged(sortParam: string) {
+		if (sortParam == 'None') {
+			this.sortedAndFilteredTasks = this.sortedAndFilteredTasks;
+		} else if (sortParam == 'Difficulty') {
+			this.sortedAndFilteredTasks = this.sortedAndFilteredTasks.pipe(map(items => items.sort((a,b) => { return a.taskDifficulty < b.taskDifficulty ? -1 : 1;}));
+		} else if (sortParam == 'Duration') {
+			this.sortedAndFilteredTasks = this.sortedAndFilteredTasks.pipe(map(items => items.sort((a,b) => { return a.taskDuration < b.taskDuration ? -1 : 1;}));
+		}
+		
+	}
+
+	filterChanged(filterParam: string) {
+		if (filterParam == 'None') {
+			this.sortedAndFilteredTasks = this.tasks;
+		} else {
+			this.sortedAndFilteredTasks = this.tasks.pipe(map(tasks => tasks.filter(task => task.category === filterParam.toLowerCase())));
+		}		
 	}
 }
